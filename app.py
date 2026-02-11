@@ -5,9 +5,13 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 
-st.set_page_config(page_title="Heart Disease Prediction", layout="wide")    
+st.set_page_config(page_title="Heart Disease Prediction")    
 
-st.title("❤️ Heart Disease Prediction – ML Models")
+st.title("❤️ Heart Disease Prediction")
+st.markdown(
+    "<p style='font-size:18px;'>Comparison of Multiple Machine Learning Models</p>",
+    unsafe_allow_html=True
+)
 
 # Load scaler and models
 scaler = joblib.load("models_saved/scaler.pkl")
@@ -28,7 +32,7 @@ uploaded_file = st.file_uploader("Upload Test CSV File", type=["csv"])    # File
 model_name = st.selectbox("Select Model", list(models.keys()))        # Dropdown menu for selecting a machine learning model   
 model = models[model_name]   # Get the selected model from the dictionary
 
-if uploaded_file
+if uploaded_file:
     df = pd.read_csv(uploaded_file)   # # Read uploaded CSV file into a pandas DataFrame
 
     # Separate features (X) and target variable (y)
@@ -60,16 +64,17 @@ if uploaded_file
     fig, ax = plt.subplots(figsize=(3, 3))    
     im = ax.imshow(cm, cmap="viridis")         # Display the confusion matrix as an image
     # Label axes
-    ax.set_xlabel("Predicted")
-    ax.set_ylabel("Actual")
-    ax.set_title("Confusion Matrix", fontsize=12)
+    ax.set_xlabel("Predicted", fontsize=8)
+    ax.set_ylabel("Actual", fontsize=8)
+   # ax.set_title("Confusion Matrix", fontsize=9)
 
     # Display values inside each confusion matrix cell
     for i in range(cm.shape[0]):
         for j in range(cm.shape[1]):
             ax.text(j, i, cm[i, j],
                     ha="center", va="center",
-                    fontsize=10, color="black")
+                    fontsize=8, color="black")
 
-    fig.colorbar(im, fraction=0.046, pad=0.04)         # Add color bar for better interpretation
+    fig.colorbar(im, fraction=0.04, pad=0.03)         # Add color bar for better interpretation
+    plt.tight_layout()
     st.pyplot(fig)
