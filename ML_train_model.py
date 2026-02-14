@@ -15,8 +15,8 @@ ds = pd.read_csv("data/heart.csv")
 ds.columns = ds.columns.str.strip()               # Remove any leading/trailing whitespace from column names
 print(ds.columns)                                 # Print column names to verify they are correct
 
-X = ds.drop("target", axis=1)   
-y = ds["target"]
+X = ds.drop("target", axis=1)                     # Separate features (X) by dropping the target column
+y = ds["target"]                                 # Separate target variable (y) from the dataset 
 
 # Train-test split
 X_train, X_test, y_train, y_test = train_test_split(
@@ -44,4 +44,4 @@ for name, model in models.items():
 
 joblib.dump(scaler, "models_saved/scaler.pkl")    # Save the scaler separately
 
-print("✅ All models and scaler saved successfully")
+print("✅ All models and scaler saved successfully") 

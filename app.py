@@ -19,12 +19,12 @@ scaler = joblib.load("models_saved/scaler.pkl")
 # Load all trained machine learning models
 # Stored as a dictionary for easy selection
 models = {
-    "Logistic Regression": joblib.load("models_saved/logistic.pkl"),     
-    "Decision Tree": joblib.load("models_saved/decision_tree.pkl"),
-    "KNN": joblib.load("models_saved/knn.pkl"),
-    "Naive Bayes": joblib.load("models_saved/naive_bayes.pkl"),
-    "Random Forest": joblib.load("models_saved/random_forest.pkl"),
-    "XGBoost": joblib.load("models_saved/xgboost.pkl"),
+    "Logistic Regression": joblib.load("models_saved/logistic.pkl"),     # Load Logistic Regression model from the specified file path
+    "Decision Tree": joblib.load("models_saved/decision_tree.pkl"),      # Load Decision Tree model from the specified file path
+    "KNN": joblib.load("models_saved/knn.pkl"),                          # Load K-Nearest Neighbors model from the specified file path
+    "Naive Bayes": joblib.load("models_saved/naive_bayes.pkl"),          # Load Naive Bayes model from the specified file path
+    "Random Forest": joblib.load("models_saved/random_forest.pkl"),      # Load Random Forest model from the specified file path
+    "XGBoost": joblib.load("models_saved/xgboost.pkl"),                  # Load XGBoost model from the specified file path
 }
 
 uploaded_file = st.file_uploader("Upload Test CSV File", type=["csv"])    # File uploader widget to upload test CSV dataset
@@ -47,12 +47,12 @@ if uploaded_file:
     # Display evaluation metrics
     st.subheader("📊 Evaluation Metrics")
 
-    st.write("Accuracy:", accuracy_score(y, y_pred))
-    st.write("AUC:", roc_auc_score(y, y_prob))
-    st.write("Precision:", precision_score(y, y_pred))
-    st.write("Recall:", recall_score(y, y_pred))
-    st.write("F1 Score:", f1_score(y, y_pred))
-    st.write("MCC:", matthews_corrcoef(y, y_pred)) 
+    st.write("Accuracy:", accuracy_score(y, y_pred))          # Calculate and display accuracy score
+    st.write("AUC:", roc_auc_score(y, y_prob))                # Calculate and display ROC-AUC score using predicted probabilities
+    st.write("Precision:", precision_score(y, y_pred))        # Calculate and display precision score
+    st.write("Recall:", recall_score(y, y_pred))              # Calculate and display recall score
+    st.write("F1 Score:", f1_score(y, y_pred))                # Calculate and display F1 score
+    st.write("MCC:", matthews_corrcoef(y, y_pred))            # Calculate and display Matthews Correlation Coefficient (MCC) score
 
     # Display confusion matrix
     st.subheader("📊 Confusion Matrix")
@@ -64,16 +64,16 @@ if uploaded_file:
     fig, ax = plt.subplots(figsize=(3, 3))    
     im = ax.imshow(cm, cmap="viridis")         # Display the confusion matrix as an image
     # Label axes
-    ax.set_xlabel("Predicted", fontsize=8)
-    ax.set_ylabel("Actual", fontsize=8)
+    ax.set_xlabel("Predicted", fontsize=8)      # Set x-axis label to "Predicted" with smaller font size
+    ax.set_ylabel("Actual", fontsize=8)         # Set y-axis label to "Actual" with smaller font size
    # ax.set_title("Confusion Matrix", fontsize=9)
 
     # Display values inside each confusion matrix cell
-    for i in range(cm.shape[0]):
-        for j in range(cm.shape[1]):
-            ax.text(j, i, cm[i, j],
-                    ha="center", va="center",
-                    fontsize=8, color="black")
+    for i in range(cm.shape[0]):             # Loop through each row of the confusion matrix
+        for j in range(cm.shape[1]):         # Loop through each column of the confusion matrix
+            ax.text(j, i, cm[i, j],          # Add text annotation for the value in the cell
+                    ha="center", va="center",   # Center the text horizontally and vertically
+                    fontsize=8, color="black")  # Set font size and color for the text annotation
 
     fig.colorbar(im, fraction=0.04, pad=0.03)         # Add color bar for better interpretation
     plt.tight_layout()
